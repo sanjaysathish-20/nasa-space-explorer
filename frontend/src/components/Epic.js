@@ -44,7 +44,14 @@ function Epic() {
 
   return (
     <div style={{ padding: '1rem', backgroundColor: '#121212', minHeight: '100vh' }}>
-      <h2 style={{ color: '#eee' }}>Earth Polychromatic Imaging Camera (EPIC)</h2>
+      <h2 style={{ color: '#eee', textAlign: 'center' }}>Earth Polychromatic Imaging Camera (EPIC)</h2>
+
+      <div style={{ textAlign: 'center', maxWidth: '600px', margin: '0.5rem auto 1rem auto' }}>
+        <p style={{ color: '#ccc', margin: 0 }}>
+          This component displays natural color images of Earth taken by NASA's EPIC instrument aboard the DSCOVR satellite. 
+          Select a date to view the available images captured on that day, including their capture time.
+        </p>
+      </div>
 
       <StyledDatePicker
         selectedDate={date}

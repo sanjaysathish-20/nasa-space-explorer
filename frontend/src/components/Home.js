@@ -1,218 +1,243 @@
 import React, { useEffect, useState } from 'react';
 import './Home.css';
 
-// Import all background images from ../images folder
-const importAll = (r) => r.keys().map(r);
-const backgrounds = importAll(require.context('../images', false, /\.(png|jpe?g|svg)$/));
+function importAll(r) {
+  return r.keys().map(r);
+}
 
-// Base URL from environment or fallback
-const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+const images = importAll(require.context('../images', false, /\.(png|jpe?g|svg|gif)$/));
 
 function Home() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [naturalEvents, setNaturalEvents] = useState([]);
-  const [naturalIndex, setNaturalIndex] = useState(0);
-  const [insightWeather, setInsightWeather] = useState(null);
-  const [loadingInsight, setLoadingInsight] = useState(false);
-  const [insightError, setInsightError] = useState(null);
-  const [bgIndex, setBgIndex] = useState(0);
+  const [currentNaturalIndex, setCurrentNaturalIndex] = useState(0);
+  const [marsWeather, setMarsWeather] = useState(null);
+  const [loadingEvents, setLoadingEvents] = useState(true);
 
-  // Fetch DONKI alerts (space weather)
-  const fetchSpaceWeather = async () => {
-    try {
-      const res = await fetch(`${BASE_URL}/donki`);
-      const data = await res.json();
-      setEvents(data.slice(0, 10));
-    } catch (error) {
-      console.error('Error fetching DONKI alerts:', error);
-    }
-  };
-
-  // Fetch EONET natural events
-  const fetchEONET = async () => {
-    try {
-      const res = await fetch(`${BASE_URL}/eonet-events`);
-      const data = await res.json();
-      console.log('EONET data fetched:', data);  // Debug log
-      if (data?.events && data.events.length > 0) {
-        setNaturalEvents(data.events);
-        setNaturalIndex(0); // Reset index on new data
-      } else {
-        setNaturalEvents([]);
-      }
-    } catch (error) {
-      console.error('Error fetching EONET events:', error);
-      setNaturalEvents([]);
-    }
-  };
-
-  // Fetch Insight Mars Weather data
-  const fetchInsightWeather = async () => {
-    setLoadingInsight(true);
-    setInsightError(null);
-    try {
-      const res = await fetch(`${BASE_URL}/insight-weather`);
-      if (!res.ok) throw new Error('Failed to fetch Insight Mars Weather data');
-      const data = await res.json();
-      const solKeys = data['sol_keys'];
-      if (solKeys?.length > 0) {
-        const latestSol = solKeys[solKeys.length - 1];
-        setInsightWeather({ sol: latestSol, ...data[latestSol] });
-      } else {
-        setInsightError('No sol data found');
-      }
-    } catch (err) {
-      setInsightError(err.message || 'Unknown error');
-    } finally {
-      setLoadingInsight(false);
-    }
-  };
-
-  // Initial data fetch on component mount
   useEffect(() => {
+    const fetchSpaceWeather = async () => {
+      try {
+        const res = await fetch(`https://api.nasa.gov/DONKI/notifications?api_key=DEMO_KEY`);
+        const data = await res.json();
+        setEvents(data.slice(0, 10));
+      } catch (error) {
+        console.error('Error fetching DONKI data:', error);
+      } finally {
+        setLoadingEvents(false);
+      }
+    };
+
+    const fetchEONET = async () => {
+      try {
+        const res = await fetch('https://eonet.gsfc.nasa.gov/api/v3/events?limit=5&status=open');
+        const data = await res.json();
+        if (data && data.events) setNaturalEvents(data.events);
+      } catch (error) {
+        console.error('Error fetching EONET events:', error);
+      }
+    };
+
+    const fetchMarsWeather = async () => {
+      try {
+        const res = await fetch(
+          'https://api.nasa.gov/insight_weather/?api_key=DEMO_KEY&feedtype=json&ver=1.0'
+        );
+        const data = await res.json();
+        const sols = data.sol_keys;
+        if (sols?.length > 0) {
+          const latestSol = sols[sols.length - 1];
+          setMarsWeather({ sol: latestSol, weather: data[latestSol] });
+        }
+      } catch (error) {
+        console.error('Error fetching Mars weather:', error);
+        setMarsWeather(null);
+      }
+    };
+
     fetchSpaceWeather();
     fetchEONET();
-    fetchInsightWeather();
+    fetchMarsWeather();
   }, []);
 
-  // Rotate background image every 30 seconds
   useEffect(() => {
     const interval = setInterval(() => {
-      setBgIndex((prevIndex) => (prevIndex + 1) % backgrounds.length);
-    }, 30000);
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 10000);
     return () => clearInterval(interval);
   }, []);
 
-  // EONET event navigation handlers
-  const handleNext = () =>
-    setNaturalIndex((prevIndex) => (prevIndex + 1) % naturalEvents.length);
-
-  const handlePrev = () =>
-    setNaturalIndex((prevIndex) =>
-      (prevIndex - 1 + naturalEvents.length) % naturalEvents.length
-    );
+  // Open modal with first alert event on "View" button click
+  const handleViewAlerts = () => {
+    if (events.length > 0) setSelectedEvent(events[0]);
+  };
 
   return (
     <div
       className="home-container"
-      style={{ backgroundImage: `url(${backgrounds[bgIndex]})` }}
-      key={bgIndex}
+      style={{
+        backgroundImage: `url(${images[currentImageIndex]})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        minHeight: '100vh',
+        color: 'white',
+        padding: '30px 20px',
+      }}
     >
       <h1 className="home-title">Welcome to NASA Space Explorer</h1>
       <p className="home-subtitle">
-        Discover the wonders of the universe through real NASA data and imagery.
+        Explore real-time NASA data including space weather alerts, recent Earth natural events, and Mars weather. Discover the universe with live updates and stunning NASA imagery all in one place!.
       </p>
 
-      {/* DONKI Space Weather Alerts */}
-      <div className="space-weather-ticker">
-        <h2>Latest Space Weather Alerts</h2>
-        <div className="ticker-wrapper">
-          <div className="ticker-move">
-            {events.map((event, idx) => (
-              <span key={idx} className="ticker-item">
-                {event.messageType}: {event.messageBody.slice(0, 80)}...
-              </span>
-            ))}
-          </div>
-        </div>
-        <div className="view-btn-wrapper">
-          <button
-            onClick={() => setSelectedEvent(events[0])}
-            className="view-details-btn"
-            disabled={!events.length}
-          >
-            View Details
-          </button>
-        </div>
-      </div>
+      {/* Vertical stacking of cards */}
+      <div className="vertical-cards">
 
-      {/* EONET Natural Events */}
-      <div className="eonet-event">
-        <h3>Latest Natural Events (EONET)</h3>
-        {naturalEvents.length > 0 ? (
-          <>
-            <p>{naturalEvents[naturalIndex]?.title}</p>
-            <p className="info">
-              Category: {naturalEvents[naturalIndex]?.categories?.[0]?.title || 'N/A'}
-            </p>
-            <p className="info">
-              Started: {naturalEvents[naturalIndex]?.geometry?.[0]?.date?.split('T')[0] || 'N/A'}
-            </p>
-            <div className="view-btn-wrapper" style={{ display: 'flex', gap: '10px' }}>
-              <button onClick={handlePrev} className="view-details-btn" aria-label="Prev">
-                &larr;
+        {/* Space Weather Alerts */}
+        <section className="card-section">
+          <h2>Space Weather Alerts</h2>
+          {loadingEvents ? (
+            <p>Loading alerts...</p>
+          ) : events.length === 0 ? (
+            <p>No alerts available.</p>
+          ) : (
+            <>
+              <div className="space-alerts-ticker" aria-label="Space Weather Alerts">
+                <div className="ticker-move">
+                  {/* Repeat twice for seamless looping */}
+                  {[...events.slice(0, 10), ...events.slice(0, 10)].map((event, idx) => (
+                    <div key={idx} className="space-alert-item">
+                      <strong>{event.messageType}</strong>: {event.messageBody?.slice(0, 80)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <button className="view-btn" onClick={handleViewAlerts}>
+                View
               </button>
+            </>
+          )}
+        </section>
+
+        {/* EONET Event */}
+        {naturalEvents.length > 0 && (
+          <section className="card-section">
+            <h2>Recent Earth Observations</h2>
+            <div className="eonet-details">
+              <h3>{naturalEvents[currentNaturalIndex].title}</h3>
+              <p>Category: {naturalEvents[currentNaturalIndex].categories?.[0]?.title || 'N/A'}</p>
+              <p>
+                Started:{' '}
+                {naturalEvents[currentNaturalIndex].geometry?.[0]?.date
+                  ?.split('T')[0]}
+              </p>
               <button
-                onClick={() => setSelectedEvent(naturalEvents[naturalIndex])}
+                onClick={() => setSelectedEvent(naturalEvents[currentNaturalIndex])}
                 className="view-details-btn"
               >
                 View Details
               </button>
-              <button onClick={handleNext} className="view-details-btn" aria-label="Next">
-                &rarr;
-              </button>
             </div>
-          </>
-        ) : (
-          <p>No natural events data available at the moment.</p>
+          </section>
         )}
+
+        {/* Mars Weather */}
+        <section className="card-section">
+          <h2>Insight Mars Weather</h2>
+          {marsWeather ? (
+            <>
+              <p>
+                <strong>Sol:</strong> {marsWeather.sol}
+              </p>
+              <p>
+                <strong>Season:</strong> {marsWeather.weather.Season || 'N/A'}
+              </p>
+              <p>
+                <strong>Temperature:</strong> Min: {marsWeather.weather.AT?.mn ?? 'N/A'}°C, Max:{' '}
+                {marsWeather.weather.AT?.mx ?? 'N/A'}°C
+              </p>
+              <p>
+                <strong>Wind Speed:</strong> Min: {marsWeather.weather.HWS?.mn ?? 'N/A'} m/s, Max:{' '}
+                {marsWeather.weather.HWS?.mx ?? 'N/A'} m/s
+              </p>
+              <p>
+                <strong>Pressure:</strong> {marsWeather.weather.PRE?.av ?? 'N/A'} Pa
+              </p>
+              <a
+                href="https://mars.nasa.gov/insight/weather/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="learn-more-link"
+              >
+                Learn More
+              </a>
+            </>
+          ) : (
+            <p>Failed to load Mars weather data.</p>
+          )}
+        </section>
       </div>
 
-      {/* Insight Mars Weather */}
-      <div className="insight-weather">
-        <h3>Insight Mars Weather Service</h3>
-        {loadingInsight && <p>Loading Mars weather data...</p>}
-        {insightError && <p className="error">{insightError}</p>}
-        {insightWeather && !loadingInsight && !insightError && (
-          <>
-            <p>Sol (Mars day): {insightWeather.sol}</p>
-            <p>Average Temperature: {insightWeather.AT?.av} °C</p>
-            <p>Max Temperature: {insightWeather.AT?.mx} °C</p>
-            <p>Min Temperature: {insightWeather.AT?.mn} °C</p>
-            <p>Wind Speed: {insightWeather.HWS?.av} m/s</p>
-            <p>Pressure: {insightWeather.PRE?.av} Pa</p>
-            <p>Season: {insightWeather.Season}</p>
-          </>
-        )}
-      </div>
-
-      {/* Modal for selected event details */}
+      {/* Modal for Detailed View */}
       {selectedEvent && (
-        <div className="modal-overlay">
-          <div className="modal-content">
+        <div className="modal-overlay" onClick={() => setSelectedEvent(null)}>
+          <div className="modal-content" onClick={e => e.stopPropagation()}>
             <button onClick={() => setSelectedEvent(null)} className="modal-close-btn">
               ✕
             </button>
-            {selectedEvent.messageType ? (
-              <>
-                <h2>{selectedEvent.messageType}</h2>
-                <p>{selectedEvent.messageBody}</p>
-                <p className="modal-info">
-                  Issued: {new Date(selectedEvent.messageIssueTime).toLocaleString()}
-                </p>
-              </>
-            ) : (
+
+            {/* Check if selectedEvent is from naturalEvents by ID */}
+            {naturalEvents.find(event => event.id === selectedEvent.id) ? (
               <>
                 <h2>{selectedEvent.title}</h2>
                 <p>{selectedEvent.description || 'No description available.'}</p>
-                <p className="modal-info">
-                  Category: {selectedEvent.categories?.[0]?.title || 'N/A'}
+                <p>
+                  <strong>Category:</strong> {selectedEvent.categories?.[0]?.title}
                 </p>
-                <p className="modal-info">
-                  Date: {selectedEvent.geometry?.[0]?.date?.split('T')[0] || 'N/A'}
-                </p>
-                <p className="modal-info">
-                  Coordinates: {selectedEvent.geometry?.[0]?.coordinates?.join(', ') || 'N/A'}
+                <p>
+                  <strong>Date:</strong> {selectedEvent.geometry?.[0]?.date?.split('T')[0]}
                 </p>
                 <a
                   href={selectedEvent.sources?.[0]?.url || selectedEvent.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="modal-link"
                 >
                   Source
                 </a>
+
+                {/* Arrow navigation */}
+                <div className="event-nav-buttons" style={{ marginTop: '20px' }}>
+                  <button
+                    onClick={() => {
+                      const currentIdx = naturalEvents.findIndex(e => e.id === selectedEvent.id);
+                      const prevIdx = currentIdx === 0 ? naturalEvents.length - 1 : currentIdx - 1;
+                      setSelectedEvent(naturalEvents[prevIdx]);
+                      setCurrentNaturalIndex(prevIdx);
+                    }}
+                  >
+                    &larr; Prev
+                  </button>
+                  <button
+                    onClick={() => {
+                      const currentIdx = naturalEvents.findIndex(e => e.id === selectedEvent.id);
+                      const nextIdx = currentIdx === naturalEvents.length - 1 ? 0 : currentIdx + 1;
+                      setSelectedEvent(naturalEvents[nextIdx]);
+                      setCurrentNaturalIndex(nextIdx);
+                    }}
+                  >
+                    Next &rarr;
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                {/* For DONKI alerts */}
+                <h2>{selectedEvent.messageType}</h2>
+                <p>{selectedEvent.messageBody}</p>
+                <p>
+                  <strong>Issued:</strong> {new Date(selectedEvent.messageIssueTime).toLocaleString()}
+                </p>
               </>
             )}
           </div>

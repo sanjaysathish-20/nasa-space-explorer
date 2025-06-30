@@ -1,287 +1,195 @@
-/* Reset and layout base */
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-  overflow-x: hidden;
+
+.home-container {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+  min-height: 100vh;
+  padding: 30px 20px;
+  /* Remove background-color or background-image here since React sets it inline */
 }
 
-/* Home container with dynamic background image */
-.home-container {
-  height: 100vh;
-  width: 100vw;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: #000014; /* fallback color */
+.home-title {
+  font-size: 3rem;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 6px rgba(33, 150, 243, 0.7);
+}
+
+.home-subtitle {
+  font-size: 1.25rem;
+  margin-bottom: 40px;
+  text-shadow: 1px 1px 3px rgba(33, 150, 243, 0.5);
+}
+
+.vertical-cards {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  position: relative;
-  transition: background-image 1.5s ease-in-out;
-  /* Removed padding to avoid gaps */
-  padding: 0;
-  margin: 0; /* ensure no margin */
-  box-sizing: border-box;
-}
-
-/* Optional dark overlay for better text contrast */
-.home-container::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0, 0, 20, 0.5);
-  z-index: 0;
-}
-
-/* Content should appear above overlay */
-.home-container > * {
-  z-index: 1;
-}
-
-/* Title styling */
-.home-title {
-  font-size: 2.8rem;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 0.3rem;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
-}
-
-/* Subtitle */
-.home-subtitle {
-  text-align: center;
-  font-size: 1.15rem;
-  line-height: 1.5;
-  margin-bottom: 2rem;
-  color: #b8bee9;
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-  font-weight: 500;
-  text-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
-}
-
-/* Headings */
-h2, h3 {
-  color: #a7b3ff;
-  margin-bottom: 0.75rem;
-  font-weight: 600;
-  text-shadow: 0 0 6px #000a3d;
-}
-
-/* Space weather ticker styling */
-.space-weather-ticker {
-  background: rgba(0, 0, 40, 0.7);
-  padding: 1rem 2rem;
-  margin-bottom: 2rem;
-  border-radius: 12px;
+  gap: 40px;
   max-width: 900px;
-  width: 100%;
-  box-shadow: 0 0 12px #a7b3ffaa;
+  margin: 0 auto;
 }
 
-.ticker-wrapper {
+.card-section {
+  background: rgba(20, 25, 35, 0.7); /* semi-transparent dark for readability */
+  border-radius: 15px;
+  padding: 25px 30px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.7);
+  min-height: 140px;
+}
+
+/* Rest of your CSS unchanged... */
+
+.space-alerts-ticker {
   overflow: hidden;
   white-space: nowrap;
-  width: 100%;
+  border: 1px solid #2196f3;
+  padding: 10px 0;
+  margin: 15px 0 10px;
+  background: rgba(30, 40, 50, 0.7);
+  border-radius: 10px;
+  position: relative;
+  height: 38px;
+  font-size: 1rem;
+  line-height: 1.3;
+  color: #90caf9;
 }
 
 .ticker-move {
   display: inline-block;
-  animation: ticker-scroll 20s linear infinite;
-  font-weight: 600;
-  font-size: 1rem;
-  color: #d3d9ff;
-  user-select: none;
+  padding-left: 100%;
+  animation: tickerScroll 40s linear infinite;
 }
 
-.ticker-item {
+.space-alert-item {
   display: inline-block;
-  margin-right: 4rem;
+  margin-right: 60px;
+  white-space: nowrap;
 }
 
-/* Animation for ticker */
-@keyframes ticker-scroll {
+@keyframes tickerScroll {
   0% {
-    transform: translateX(100%);
+    transform: translateX(0);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
 
-/* View button */
-.view-btn-wrapper {
-  margin-top: 0.75rem;
-  text-align: right;
+.view-btn {
+  background-color: #2196f3;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.view-btn:hover {
+  background-color: #1976d2;
+}
+
+/* EONET Earth Observation card */
+.eonet-details h3 {
+  margin-bottom: 8px;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #64b5f6; /* lighter blue */
+}
+
+.eonet-details p {
+  margin: 4px 0;
+  font-size: 1.1rem;
 }
 
 .view-details-btn {
-  padding: 0.45rem 1rem;
-  background: #6677ffcc;
+  margin-top: 12px;
+  padding: 7px 16px;
+  font-weight: 600;
   border: none;
   border-radius: 8px;
+  background-color: #42a5f5; /* medium blue */
   color: white;
-  font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s ease;
-  font-size: 0.95rem;
-  box-shadow: 0 0 8px #6677ffcc;
+  transition: background-color 0.3s ease;
 }
 
-.view-details-btn:hover:not(:disabled) {
-  background: #aabaff;
-  color: #000022;
-  box-shadow: 0 0 12px #aabaff;
+.view-details-btn:hover {
+  background-color: #1565c0; /* darker blue */
 }
 
-.view-details-btn:disabled {
-  background: #8888aa;
-  cursor: not-allowed;
-  box-shadow: none;
-}
-
-/* EONET Event styling */
-.eonet-event {
-  background: rgba(5, 5, 25, 0.8);
-  border-radius: 12px;
-  padding: 1.25rem 2rem;
-  margin-bottom: 2rem;
-  max-width: 650px;
-  width: 90%;
-  box-shadow: 0 0 15px #3a5cffbb;
-  text-align: center;
-}
-
-.eonet-event p {
-  font-size: 1.1rem;
+/* Mars Weather section */
+.learn-more-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #81d4fa;
+  text-decoration: underline;
   font-weight: 600;
-  color: #b8bee9;
 }
 
-.eonet-event .info {
-  font-size: 0.9rem;
-  color: #cfd6ffcc;
-  margin-top: 0.15rem;
-  font-weight: 400;
+.learn-more-link:hover {
+  color: #4fc3f7;
 }
 
-/* Mars Insight Weather Block */
-.insight-weather {
-  background: rgba(20, 20, 50, 0.9);
-  border-radius: 12px;
-  padding: 1rem 2rem;
-  margin-bottom: 2rem;
-  max-width: 400px;
-  width: 90%;
-  box-shadow: 0 0 12px #aa77ffcc;
-  color: #ddd;
-  font-weight: 500;
-  font-size: 1rem;
-  text-align: center;
-}
-
-.insight-weather p {
-  margin: 0.2rem 0;
-}
-
-/* Error message */
-.error {
-  color: #ff6666;
-  font-weight: 700;
-}
-
-/* Modal Overlay */
+/* Modal styles */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 15, 0.95);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(15, 20, 30, 0.9);
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 9999;
-  padding: 1rem;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
 }
 
-/* Modal Content Box */
 .modal-content {
-  background: #0a0a30;
-  border-radius: 16px;
-  max-width: 650px;
-  width: 90%;
-  padding: 2rem 2.5rem;
+  background-color: #121921;
+  border-radius: 12px;
+  padding: 30px 25px;
+  max-width: 700px;
+  width: 100%;
+  color: #eee;
   position: relative;
-  color: #e0e0ff;
-  box-shadow: 0 0 25px #6677ffaa;
-  overflow-y: auto;
   max-height: 80vh;
-  font-weight: 500;
-  font-size: 1.1rem;
-  line-height: 1.4;
+  overflow-y: auto;
+  box-shadow: 0 0 20px #2196f3aa; /* blue glow */
 }
 
-/* Close Button */
 .modal-close-btn {
   position: absolute;
-  top: 0.7rem;
-  right: 1rem;
+  top: 12px;
+  right: 15px;
   background: none;
   border: none;
-  font-size: 2.1rem;
+  font-size: 1.5rem;
+  color: #ccc;
   cursor: pointer;
-  color: #9999ffcc;
   font-weight: 700;
-  transition: color 0.3s ease;
 }
 
 .modal-close-btn:hover {
-  color: #ffffff;
+  color: #2196f3;
 }
 
-/* Additional Modal Info */
-.modal-info {
-  font-size: 0.85rem;
-  font-weight: 400;
-  color: #bbc7ffbb;
-  margin-top: 0.8rem;
-  word-break: break-word;
-}
-
-.modal-link {
-  display: inline-block;
-  margin-top: 1rem;
-  color: #aabbff;
+/* Event navigation buttons inside modal */
+.event-nav-buttons button {
+  background-color: #2196f3;
+  border: none;
+  padding: 8px 18px;
+  margin: 0 8px;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
   font-weight: 600;
-  text-decoration: underline;
-  transition: color 0.3s ease;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
 }
 
-.modal-link:hover {
-  color: #ddeeff;
-}
-
-/* Responsive tweaks */
-@media (max-width: 768px) {
-  .home-title {
-    font-size: 2rem;
-  }
-
-  .home-subtitle {
-    font-size: 1rem;
-  }
-
-  .view-details-btn {
-    font-size: 0.85rem;
-    padding: 0.4rem 0.9rem;
-  }
+.event-nav-buttons button:hover {
+  background-color: #1976d2;
 }

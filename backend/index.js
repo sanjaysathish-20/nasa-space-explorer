@@ -95,26 +95,37 @@ app.get('/donki', async (req, res) => {
   }
 });
 
-// 7. Techport API - NASA Tech Projects
-app.get('/techport', async (req, res) => {
+// 7. Insight Mars Weather API - latest Mars weather data
+app.get('/insight', async (req, res) => {
   try {
-    const projectId = req.query.id || '1';
-    const response = await axios.get(`https://api.nasa.gov/techport/api/projects/${projectId}?api_key=${NASA_API_KEY}`);
+    const response = await axios.get('https://api.nasa.gov/insight_weather/', {
+      params: {
+        api_key: NASA_API_KEY,
+        feedtype: 'json',
+        ver: '1.0',
+      },
+    });
     res.json(response.data);
   } catch (error) {
-    console.error('Techport fetch error:', error.response?.data || error.message);
-    res.status(500).json({ error: 'Failed to fetch Techport data' });
+    console.error('Insight Mars Weather fetch error:', error.response?.data || error.message);
+    res.status(500).json({ error: 'Failed to fetch Insight Mars Weather data' });
   }
 });
 
-// 8. Exoplanet Archive - placeholder
-app.get('/exoplanet', async (req, res) => {
+// 8. EONET - Earth Observatory Natural Event Tracker
+app.get('/eonet', async (req, res) => {
   try {
-    // You can add Exoplanet Archive query logic here in the future
-    res.json({ message: 'Exoplanet Archive API coming soon. Use JPL or Caltech TAP interface.' });
+    const limit = req.query.limit || 10;  // optional limit param
+    const response = await axios.get('https://eonet.gsfc.nasa.gov/api/v3/events', {
+      params: {
+        limit,
+        status: 'open',
+      },
+    });
+    res.json(response.data);
   } catch (error) {
-    console.error('Exoplanet fetch error:', error.message);
-    res.status(500).json({ error: 'Failed to fetch Exoplanet data' });
+    console.error('EONET fetch error:', error.response?.data || error.message);
+    res.status(500).json({ error: 'Failed to fetch EONET data' });
   }
 });
 

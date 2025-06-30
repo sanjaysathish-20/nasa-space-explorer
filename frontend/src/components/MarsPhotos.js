@@ -28,31 +28,97 @@ function MarsPhotos() {
   }, [page]);
 
   return (
-    <div>
-      <h2>Mars Rover Photos (Sol 1000)</h2>
-      {loading && <p>Loading photos...</p>}
-      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+    <div
+      style={{
+        padding: '1rem',
+        maxWidth: '1200px',
+        margin: '0 auto',
+        fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+        backgroundColor: '#121212',
+        color: '#eee',
+        minHeight: '100vh',
+      }}
+    >
+      <h2 style={{ textAlign: 'center', marginBottom: '0.25rem' }}>Mars Rover Photos (Sol 1000)</h2>
+      
+      <p
+        style={{
+          textAlign: 'center',
+          color: '#bbb',
+          maxWidth: '600px',
+          margin: '0 auto 1.5rem auto',
+          fontSize: '1rem',
+          lineHeight: '1.4',
+        }}
+      >
+        Explore photos captured by NASA’s Mars Rover on Sol 1000 — a snapshot of the Martian surface
+        showcasing rocks, terrain, and exploration paths. Use the pagination buttons to browse through
+        the collection of stunning images from the Red Planet.
+      </p>
 
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+      {loading && <p style={{ textAlign: 'center', color: '#bbb' }}>Loading photos...</p>}
+      {error && <p style={{ color: 'red', textAlign: 'center' }}>Error: {error}</p>}
+
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(6, 1fr)',
+          gap: '12px',
+          justifyContent: 'center',
+        }}
+      >
         {photos.map(photo => (
           <img
             key={photo.id}
             src={photo.img_src}
             alt={`Mars rover ${photo.rover.name}`}
-            style={{ width: '200px', borderRadius: '8px' }}
+            style={{ width: '100%', borderRadius: '8px', boxShadow: '0 2px 8px rgba(0,0,0,0.6)' }}
           />
         ))}
       </div>
 
-      <div style={{ marginTop: '20px' }}>
+      <div
+        style={{
+          marginTop: '20px',
+          display: 'flex',
+          justifyContent: 'center',
+          gap: '1rem',
+        }}
+      >
         <button
           onClick={() => setPage(p => Math.max(p - 1, 1))}
           disabled={page === 1}
+          style={{
+            padding: '0.5rem 1rem',
+            borderRadius: '4px',
+            border: 'none',
+            backgroundColor: page === 1 ? '#444' : '#0077cc',
+            color: 'white',
+            cursor: page === 1 ? 'not-allowed' : 'pointer',
+            transition: 'background-color 0.3s ease',
+          }}
+          onMouseOver={e => { if(page !== 1) e.currentTarget.style.backgroundColor = '#005fa3' }}
+          onMouseOut={e => { if(page !== 1) e.currentTarget.style.backgroundColor = '#0077cc' }}
         >
           Previous
         </button>
-        <span style={{ margin: '0 10px' }}>Page: {page}</span>
-        <button onClick={() => setPage(p => p + 1)}>
+
+        <span style={{ alignSelf: 'center', fontSize: '1rem' }}>Page: {page}</span>
+
+        <button
+          onClick={() => setPage(p => p + 1)}
+          style={{
+            padding: '0.5rem 1rem',
+            borderRadius: '4px',
+            border: 'none',
+            backgroundColor: '#0077cc',
+            color: 'white',
+            cursor: 'pointer',
+            transition: 'background-color 0.3s ease',
+          }}
+          onMouseOver={e => (e.currentTarget.style.backgroundColor = '#005fa3')}
+          onMouseOut={e => (e.currentTarget.style.backgroundColor = '#0077cc')}
+        >
           Next
         </button>
       </div>
