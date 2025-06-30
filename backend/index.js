@@ -104,7 +104,9 @@ app.get('/exoplanet', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch Exoplanet data' });
   }
 });
-
+app.get('/', (req, res) => {
+  res.send('NASA Space Explorer API is running');
+});
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
