@@ -42,14 +42,14 @@ cd frontend
 npm install
 npm run build
 
-🌐 Backend Setup (Node.js + Express)
+### 🌐 Backend Setup (Node.js + Express)
 
 cd backend
 npm install
 node index.js
 
 
-🛰️ NASA APIs Used
+### 🛰️ NASA APIs Used
 ✅ Astronomy Picture of the Day (APOD)
 
 ✅ Mars Rover Photos
@@ -73,7 +73,7 @@ node index.js
 
 ✅ Optimized UI with cards, grids, and adaptive text
 
-🤖 Future AI Feature Ideas (Optional)
+### 🤖 Future AI Feature Ideas (Optional)
 🧠 ChatGPT assistant to answer space-related queries
 
 🖼️ Auto-caption generation for Mars Rover photos
@@ -82,14 +82,14 @@ node index.js
 
 📝 AI summary generation for space weather events (DONKI) or asteroid data (NeoWs)
 
-👨‍💻 Author
+### 👨‍💻 Author
 Sanjay Sathish Kumar
 🎓 MSc in Computing (Data Analytics) — DCU
 📍 Based in Dublin, Ireland
 📧 sanjay.sathish0604@gmail.com
 
 
-🙌 Acknowledgements
+### 🙌 Acknowledgements
 🌌 NASA Open APIs
 
 ⚛️ React
