@@ -22,10 +22,6 @@ An interactive full-stack web application that explores and visualizes data from
 - 🔭 Additional Data:
   - DONKI (Space Weather)
   - NASA Techport (R&D Projects)
-  - Exoplanet Archive
-- 💡 Space facts and insights on the homepage
-- 🔄 Scroll-to-top button
-- ⏳ Loading spinner for API content
 - 📱 Fully responsive with a mobile-friendly hamburger menu
 
 ---
@@ -44,7 +40,7 @@ An interactive full-stack web application that explores and visualizes data from
 ```bash
 cd frontend
 npm install
-npm run dev
+npm run build
 
 🌐 Backend Setup (Node.js + Express)
 
@@ -92,8 +88,6 @@ Sanjay Sathish Kumar
 📍 Based in Dublin, Ireland
 📧 sanjay.sathish0604@gmail.com
 
-📜 License
-This project is licensed under the MIT License.
 
 🙌 Acknowledgements
 🌌 NASA Open APIs
