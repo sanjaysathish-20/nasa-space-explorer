@@ -41,15 +41,16 @@ An interactive full-stack web application that explores and visualizes data from
 cd frontend
 npm install
 npm run build
-
+```
 ---
 
 🌐 Backend Setup (Node.js + Express)
 
+```bash
 cd backend
 npm install
 node index.js
-
+```
 ---
 
  🛰️ NASA APIs Used
