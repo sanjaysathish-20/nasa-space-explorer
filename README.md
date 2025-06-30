@@ -69,9 +69,8 @@ node index.js
 ✅ Techport (NASA R&D Projects)
 
 ✅ NASA Exoplanet Archive
-
-📱 Mobile-Friendly Design
-✅ Touch-friendly hamburger menu (custom CSS & React)
+ 
+✅ Mobile-Friendly Design menu (custom CSS & React)
 
 ✅ Responsive layout (TailwindCSS)
 
@@ -80,6 +79,7 @@ node index.js
 ---
 
  🤖 Future AI Feature Ideas (Optional)
+ 
 🧠 ChatGPT assistant to answer space-related queries
 
 🖼️ Auto-caption generation for Mars Rover photos
@@ -101,6 +101,7 @@ Sanjay Sathish Kumar
 
 
  🙌 Acknowledgements
+ 
 🌌 NASA Open APIs
 
 ⚛️ React
