@@ -1,0 +1,253 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden; /* optional, avoid horizontal scrollbar */
+}
+
+.home-container {
+  height: 100vh; /* full viewport height */
+  width: 100vw;  /* full viewport width */
+  background-size: cover;      /* make background cover whole container */
+  background-position: center; /* center the image */
+  background-repeat: no-repeat;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* or center depending on your design */
+  padding: 2rem 1rem 3rem 1rem;
+  color: #f5f5f5;
+  position: relative;
+  transition: background-image 1.5s ease-in-out; /* smooth fade */
+}
+
+/* Fade background helper class (optional if transition applied to .home-container) */
+.fade-bg {
+  transition: background-image 1.5s ease-in-out;
+}
+
+/* Title styling */
+.home-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 0.3rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+
+  /* Adding a subtle text shadow for better readability */
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+}
+
+/* Subtitle */
+.home-subtitle {
+  text-align: center;
+  font-size: 1.15rem;
+  line-height: 1.5;
+  margin-bottom: 2rem;
+  color: #b8bee9;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 500;
+  text-shadow: 0 0 6px rgba(0, 0, 0, 0.7);
+}
+
+/* Headings */
+h2, h3 {
+  color: #a7b3ff;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  text-shadow: 0 0 6px #000a3d;
+}
+
+/* Space weather ticker styling */
+.space-weather-ticker {
+  background: rgba(0, 0, 40, 0.7);
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
+  border-radius: 12px;
+  max-width: 900px;
+  width: 100%;
+  box-shadow: 0 0 12px #a7b3ffaa;
+}
+
+.ticker-wrapper {
+  overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.ticker-move {
+  display: inline-block;
+  animation: ticker-scroll 20s linear infinite;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #d3d9ff;
+  user-select: none;
+}
+
+.ticker-item {
+  display: inline-block;
+  margin-right: 4rem;
+}
+
+/* Space weather scrolling animation */
+@keyframes ticker-scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.view-btn-wrapper {
+  margin-top: 0.75rem;
+  text-align: right;
+}
+
+.view-details-btn {
+  padding: 0.45rem 1rem;
+  background: #6677ffcc;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-size: 0.95rem;
+  box-shadow: 0 0 8px #6677ffcc;
+}
+
+.view-details-btn:hover:not(:disabled) {
+  background: #aabaff;
+  color: #000022;
+  box-shadow: 0 0 12px #aabaff;
+}
+
+.view-details-btn:disabled {
+  background: #8888aa;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* EONET natural event block */
+.eonet-event {
+  background: rgba(5, 5, 25, 0.8);
+  border-radius: 12px;
+  padding: 1.25rem 2rem;
+  margin-bottom: 2rem;
+  max-width: 650px;
+  width: 90%;
+  box-shadow: 0 0 15px #3a5cffbb;
+  text-align: center;
+}
+
+.eonet-event p {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #b8bee9;
+}
+
+.eonet-event .info {
+  font-size: 0.9rem;
+  color: #cfd6ffcc;
+  margin-top: 0.15rem;
+  font-weight: 400;
+}
+
+/* Insight Mars Weather */
+.insight-weather {
+  background: rgba(20, 20, 50, 0.9);
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  margin-bottom: 2rem;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 0 12px #aa77ffcc;
+  color: #ddd;
+  font-weight: 500;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.insight-weather p {
+  margin: 0.2rem 0;
+}
+
+.error {
+  color: #ff6666;
+  font-weight: 700;
+}
+
+/* Modal styling */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 15, 0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: #0a0a30;
+  border-radius: 16px;
+  max-width: 650px;
+  width: 90%;
+  padding: 2rem 2.5rem;
+  position: relative;
+  color: #e0e0ff;
+  box-shadow: 0 0 25px #6677ffaa;
+  overflow-y: auto;
+  max-height: 80vh;
+  font-weight: 500;
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 0.7rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 2.1rem;
+  cursor: pointer;
+  color: #9999ffcc;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+.modal-close-btn:hover {
+  color: #ffffff;
+}
+
+.modal-info {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #bbc7ffbb;
+  margin-top: 0.8rem;
+  word-break: break-word;
+}
+
+.modal-link {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #aabbff;
+  font-weight: 600;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.modal-link:hover {
+  color: #ddeeff;
+}
