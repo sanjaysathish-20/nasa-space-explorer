@@ -32,7 +32,7 @@
   height: 98px;
   width: auto;
   cursor: pointer;
-  border-radius: 50%; /* Optional: makes it circular if it's a square image */
+  border-radius: 50%; /* Optional: circular */
   transition: transform 0.2s ease;
 }
 
@@ -40,6 +40,7 @@
   transform: scale(1.05);
 }
 
+/* Navigation links - desktop default */
 .nav-links {
   list-style: none;
   display: flex;
@@ -61,6 +62,80 @@
 
 .nav-links a:hover {
   color: #3a86ff;
+}
+
+/* Hamburger Button */
+.hamburger {
+  display: none; /* Hidden on desktop */
+  flex-direction: column;
+  justify-content: space-around;
+  width: 28px;
+  height: 22px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1100; /* Above header content */
+}
+
+.hamburger div {
+  width: 28px;
+  height: 3px;
+  background-color: #a0c4ff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: 1px;
+}
+
+/* Animate hamburger to X when open */
+.hamburger.open div:nth-child(1) {
+  transform: rotate(45deg);
+}
+
+.hamburger.open div:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open div:nth-child(3) {
+  transform: rotate(-45deg);
+}
+
+/* Responsive: Mobile menu */
+@media (max-width: 767px) {
+  /* Show hamburger */
+  .hamburger {
+    display: flex;
+  }
+
+  /* Hide nav links initially */
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    background-color: rgba(0, 15, 40, 0.95);
+    position: absolute;
+    top: 72px; /* Just below fixed header */
+    left: 0;
+    padding: 20px 0;
+    border-top: 1px solid #2196f3;
+  }
+
+  /* Show nav links when active */
+  .nav-links.active {
+    display: flex;
+  }
+
+  /* Nav links style for mobile */
+  .nav-links a {
+    font-size: 1.25rem;
+    padding: 8px 20px;
+    color: #90caf9;
+  }
+
+  .nav-links a:hover {
+    color: #3a86ff;
+  }
 }
 
 /* Optional: Body top padding so content isn't hidden under fixed header */
