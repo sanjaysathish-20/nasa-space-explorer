@@ -1,5 +1,3 @@
-/* src/App.css */
-
 body {
   margin: 0;
   font-family: 'Orbitron', sans-serif;
@@ -9,26 +7,25 @@ body {
   scrollbar-width: thin;
   scrollbar-color: #58a6ff #161b22;
   max-width: 100vw;
-  overflow-x: hidden;  /* prevent horizontal scroll */
-  padding: 0 1rem;      /* horizontal padding for responsiveness */
+  overflow-x: hidden;
+  padding: 0;
   box-sizing: border-box;
 }
 
-/* Custom scrollbar for WebKit browsers */
+/* Scrollbar styling for WebKit */
 body::-webkit-scrollbar {
   width: 8px;
 }
-
 body::-webkit-scrollbar-track {
   background: #161b22;
 }
-
 body::-webkit-scrollbar-thumb {
   background-color: #58a6ff;
   border-radius: 10px;
   border: 2px solid #161b22;
 }
-/* Main container */
+
+/* Main App container */
 .App {
   text-align: center;
   padding: 2rem;
@@ -36,7 +33,7 @@ body::-webkit-scrollbar-thumb {
   margin: auto;
 }
 
-/* Header */
+/* App Title */
 h1 {
   font-size: 3rem;
   margin-bottom: 2rem;
@@ -45,7 +42,7 @@ h1 {
   letter-spacing: 1.2px;
 }
 
-/* Dropdown container */
+/* Dropdown Section */
 .dropdown-container {
   margin-bottom: 2rem;
   padding: 1.5rem 2rem;
@@ -55,20 +52,15 @@ h1 {
   display: inline-block;
   transition: box-shadow 0.3s ease;
 }
-
 .dropdown-container:hover {
   box-shadow: 0 8px 40px #58a6ff88;
 }
-
-/* Label */
 label {
   font-size: 1.1rem;
   margin-right: 10px;
   color: #c9d1d9;
   user-select: none;
 }
-
-/* Dropdown */
 select {
   padding: 12px 20px;
   font-size: 1rem;
@@ -81,7 +73,6 @@ select {
   box-shadow: inset 0 0 8px #0d1117aa;
   min-width: 220px;
 }
-
 select:hover,
 select:focus {
   border-color: #58a6ff;
@@ -89,7 +80,7 @@ select:focus {
   outline: none;
 }
 
-/* Data section */
+/* Content section */
 .data-section {
   margin-top: 2rem;
   padding: 2rem 3rem;
@@ -100,8 +91,6 @@ select:focus {
   animation: fadeInUp 0.5s ease both;
   max-width: 100%;
 }
-
-/* Section headers inside data-section */
 .data-section h2 {
   color: #79c0ff;
   margin-bottom: 1rem;
@@ -111,7 +100,7 @@ select:focus {
   text-shadow: 0 0 6px #79c0ff99;
 }
 
-/* Scroll to top button */
+/* Scroll to Top button */
 .scroll-to-top {
   position: fixed;
   bottom: 30px;
@@ -128,13 +117,12 @@ select:focus {
   z-index: 999;
   user-select: none;
 }
-
 .scroll-to-top:hover {
   background-color: #1f6feb;
   transform: scale(1.1);
 }
 
-/* Loading spinner (example) */
+/* Loading spinner */
 .loading-spinner {
   border: 6px solid #161b22;
   border-top: 6px solid #58a6ff;
@@ -145,13 +133,12 @@ select:focus {
   margin: 3rem auto;
 }
 
+/* Animations */
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
 }
-
-/* Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -163,12 +150,7 @@ select:focus {
   }
 }
 
-/* Add or update these styles in App.css */
-
-/* Date Picker Container */
-/* App.css */
-
-/* Date Picker Container */
+/* Date Picker Styling */
 .date-picker-container {
   max-width: 280px;
   width: 100%;
@@ -176,8 +158,6 @@ select:focus {
   margin-bottom: 1rem;
   position: relative;
 }
-
-/* Date Picker Input */
 .styled-date-picker {
   width: 100% !important;
   max-width: 280px;
@@ -191,29 +171,21 @@ select:focus {
   outline: none;
   transition: border-color 0.3s ease;
 }
-
 .styled-date-picker:focus {
   border-color: #58a6ff;
   box-shadow: 0 0 8px #58a6ff;
 }
-
-/* Datepicker popup */
 .react-datepicker {
   max-width: 280px;
   box-sizing: border-box;
 }
-
-/* Prevent datepicker popup from overflowing horizontally */
 .react-datepicker-popper {
   max-width: 280px;
   overflow-x: hidden;
   box-sizing: border-box;
 }
 
-
-
-
-/* Responsive adjustments */
+/* Responsive */
 @media (max-width: 768px) {
   h1 {
     font-size: 2.4rem;

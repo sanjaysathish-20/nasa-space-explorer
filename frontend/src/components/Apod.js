@@ -7,6 +7,9 @@ function Apod() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // Use environment variable for backend URL or fallback to localhost
+  const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+
   const fetchApod = async (selectedDate = '') => {
     setLoading(true);
     setError(null);
@@ -15,7 +18,7 @@ function Apod() {
         ? selectedDate.toISOString().split('T')[0]
         : '';
       const dateParam = formattedDate ? `?date=${formattedDate}` : '';
-      const res = await fetch(`http://localhost:5000/apod${dateParam}`);
+      const res = await fetch(`${BASE_URL}/apod${dateParam}`);
       if (!res.ok) throw new Error('Failed to fetch');
       const data = await res.json();
       setApod(data);
@@ -27,7 +30,7 @@ function Apod() {
 
   useEffect(() => {
     fetchApod(date);
-  }, []);
+  }, []); // Run once on mount
 
   const handleDateChange = (newDate) => {
     setDate(newDate);
@@ -36,7 +39,7 @@ function Apod() {
 
   return (
     <div>
-      <h2>🌌 Astronomy Picture of the Day</h2>
+      <h2> Astronomy Picture of the Day</h2>
       <StyledDatePicker
         selectedDate={date}
         onChange={handleDateChange}
@@ -44,7 +47,7 @@ function Apod() {
       />
 
       {loading && <p>Loading APOD...</p>}
-      {error && <p>Error: {error}</p>}
+      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
 
       {apod && !loading && !error && (
         <>

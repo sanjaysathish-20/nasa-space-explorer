@@ -1,31 +1,46 @@
+/* Reset and layout base */
 html, body {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
-  overflow-x: hidden; /* optional, avoid horizontal scrollbar */
+  overflow-x: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Home container with dynamic background image */
 .home-container {
-  height: 100vh; /* full viewport height */
-  width: 100vw;  /* full viewport width */
-  background-size: cover;      /* make background cover whole container */
-  background-position: center; /* center the image */
+  height: 100vh;
+  width: 100vw;
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
-
+  background-color: #000014; /* fallback color */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* or center depending on your design */
-  padding: 2rem 1rem 3rem 1rem;
-  color: #f5f5f5;
+  justify-content: flex-start;
   position: relative;
-  transition: background-image 1.5s ease-in-out; /* smooth fade */
+  transition: background-image 1.5s ease-in-out;
+  /* Removed padding to avoid gaps */
+  padding: 0;
+  margin: 0; /* ensure no margin */
+  box-sizing: border-box;
 }
 
-/* Fade background helper class (optional if transition applied to .home-container) */
-.fade-bg {
-  transition: background-image 1.5s ease-in-out;
+/* Optional dark overlay for better text contrast */
+.home-container::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 20, 0.5);
+  z-index: 0;
+}
+
+/* Content should appear above overlay */
+.home-container > * {
+  z-index: 1;
 }
 
 /* Title styling */
@@ -36,8 +51,6 @@ html, body {
   margin-bottom: 0.3rem;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-
-  /* Adding a subtle text shadow for better readability */
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
 }
 
@@ -94,7 +107,7 @@ h2, h3 {
   margin-right: 4rem;
 }
 
-/* Space weather scrolling animation */
+/* Animation for ticker */
 @keyframes ticker-scroll {
   0% {
     transform: translateX(100%);
@@ -104,6 +117,7 @@ h2, h3 {
   }
 }
 
+/* View button */
 .view-btn-wrapper {
   margin-top: 0.75rem;
   text-align: right;
@@ -134,7 +148,7 @@ h2, h3 {
   box-shadow: none;
 }
 
-/* EONET natural event block */
+/* EONET Event styling */
 .eonet-event {
   background: rgba(5, 5, 25, 0.8);
   border-radius: 12px;
@@ -159,7 +173,7 @@ h2, h3 {
   font-weight: 400;
 }
 
-/* Insight Mars Weather */
+/* Mars Insight Weather Block */
 .insight-weather {
   background: rgba(20, 20, 50, 0.9);
   border-radius: 12px;
@@ -178,12 +192,13 @@ h2, h3 {
   margin: 0.2rem 0;
 }
 
+/* Error message */
 .error {
   color: #ff6666;
   font-weight: 700;
 }
 
-/* Modal styling */
+/* Modal Overlay */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -198,6 +213,7 @@ h2, h3 {
   padding: 1rem;
 }
 
+/* Modal Content Box */
 .modal-content {
   background: #0a0a30;
   border-radius: 16px;
@@ -214,6 +230,7 @@ h2, h3 {
   line-height: 1.4;
 }
 
+/* Close Button */
 .modal-close-btn {
   position: absolute;
   top: 0.7rem;
@@ -231,6 +248,7 @@ h2, h3 {
   color: #ffffff;
 }
 
+/* Additional Modal Info */
 .modal-info {
   font-size: 0.85rem;
   font-weight: 400;
@@ -250,4 +268,20 @@ h2, h3 {
 
 .modal-link:hover {
   color: #ddeeff;
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .home-title {
+    font-size: 2rem;
+  }
+
+  .home-subtitle {
+    font-size: 1rem;
+  }
+
+  .view-details-btn {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.9rem;
+  }
 }

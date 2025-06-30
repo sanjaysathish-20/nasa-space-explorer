@@ -6,11 +6,14 @@ function MarsPhotos() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // Use environment variable for backend URL or fallback to localhost
+  const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+
   const fetchPhotos = async (pageNum) => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`http://localhost:5000/mars-photos?page=${pageNum}`);
+      const res = await fetch(`${BASE_URL}/mars-photos?page=${pageNum}`);
       if (!res.ok) throw new Error('Failed to fetch Mars photos');
       const data = await res.json();
       setPhotos(data.photos); // API returns `photos` array
@@ -28,7 +31,7 @@ function MarsPhotos() {
     <div>
       <h2>Mars Rover Photos (Sol 1000)</h2>
       {loading && <p>Loading photos...</p>}
-      {error && <p>Error: {error}</p>}
+      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
         {photos.map(photo => (
