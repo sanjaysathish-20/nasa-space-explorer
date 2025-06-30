@@ -10,8 +10,6 @@ An interactive full-stack web application that explores and visualizes data from
 
 ---
 
----
-
 ## 🧠 Features
 
 - 📷 Astronomy Picture of the Day (APOD)
