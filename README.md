@@ -57,17 +57,13 @@ node index.js
 
 ✅ Mars Rover Photos
 
-✅ Earth Polychromatic Imaging Camera (EPIC)
-
-✅ Near-Earth Object Web Service (NeoWs)
-
 ✅ NASA Image and Video Library
 
 ✅ DONKI (Space Weather Database)
 
-✅ Techport (NASA R&D Projects)
+✅ Recent Earth Observations
 
-✅ NASA Exoplanet Archive
+✅ Insight Mars Weather
 
 ---
 
@@ -80,6 +76,8 @@ node index.js
 🎙️ Voice search using Web Speech API
 
 📝 AI summary generation for space weather events (DONKI) or asteroid data (NeoWs)
+
+ Add additional features
 
 ---
 
