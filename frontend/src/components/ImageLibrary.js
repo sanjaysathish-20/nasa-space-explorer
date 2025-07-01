@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+
 function ImageLibrary() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
@@ -13,8 +15,8 @@ function ImageLibrary() {
     setLoading(true);
     setPage(1); // reset page on new search
     try {
-      const res = await axios.get(`https://images-api.nasa.gov/search?q=${query}`);
-      const items = res.data.collection.items || [];
+      const res = await axios.get(`${BASE_URL}/library?q=${query}`);
+      const items = res.data.collection?.items || [];
       setResults(items);
     } catch (err) {
       console.error('Error fetching image library:', err);
@@ -98,6 +100,12 @@ function ImageLibrary() {
       </div>
 
       {loading && <p style={{ textAlign: 'center', color: '#bbb' }}>Loading...</p>}
+
+      {!loading && results.length === 0 && query && (
+        <p style={{ textAlign: 'center', marginTop: '1rem', color: '#bbb' }}>
+          No results found. Try searching something else.
+        </p>
+      )}
 
       <div
         style={{
