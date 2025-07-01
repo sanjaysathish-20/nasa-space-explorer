@@ -68,12 +68,6 @@ node index.js
 ✅ Techport (NASA R&D Projects)
 
 ✅ NASA Exoplanet Archive
- 
-✅ Mobile-Friendly Design menu (custom CSS & React)
-
-✅ Responsive layout (TailwindCSS)
-
-✅ Optimized UI with cards, grids, and adaptive text
 
 ---
 
