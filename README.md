@@ -6,7 +6,7 @@ An interactive full-stack web application that explores and visualizes data from
 
 ## 🌐 Live Demo
 
-**🔗 Deployed Application:** https://nasa-space-explorer-umber.vercel.app/
+**🔗 Deployed Application:** [https://nasa-space-explorer-umber.vercel.app/](https://nasa-space-explorer-nine.vercel.app/)
 
 ---
 
