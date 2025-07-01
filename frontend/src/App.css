@@ -54,6 +54,7 @@ h1 {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
   display: inline-block;
   transition: box-shadow 0.3s ease;
+  overflow: visible; /* Ensure datepicker popup is not clipped */
 }
 .dropdown-container:hover {
   box-shadow: 0 8px 40px #58a6ff88;
@@ -178,14 +179,18 @@ select:focus {
   border-color: #58a6ff;
   box-shadow: 0 0 8px #58a6ff;
 }
+
+/* Fix datepicker popup overlap issue */
 .react-datepicker {
   max-width: 280px;
   box-sizing: border-box;
+  z-index: 10000 !important;
 }
 .react-datepicker-popper {
   max-width: 280px;
   overflow-x: hidden;
   box-sizing: border-box;
+  z-index: 10000 !important; /* Ensure popup appears on top */
 }
 
 /* Responsive */
