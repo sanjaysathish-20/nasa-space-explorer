@@ -39,8 +39,6 @@ function Header() {
           {/* Home button removed */}
           <li><Link to="/apod" onClick={closeMenu}>APOD</Link></li>
           <li><Link to="/mars" onClick={closeMenu}>Mars Rover</Link></li>
-          <li><Link to="/epic" onClick={closeMenu}>EPIC</Link></li>
-          <li><Link to="/neo" onClick={closeMenu}>NeoWs</Link></li>
           <li><Link to="/library" onClick={closeMenu}>Image Library</Link></li>
         </ul>
       </div>
