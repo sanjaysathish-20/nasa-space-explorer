@@ -30,7 +30,7 @@ function Apod() {
 
   useEffect(() => {
     fetchApod(date);
-  }, []); // Run once on mount
+  }, []); 
 
   const handleDateChange = (newDate) => {
     setDate(newDate);

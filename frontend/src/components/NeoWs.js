@@ -15,7 +15,7 @@ function NeoWs() {
   const today = new Date();
   const defaultEnd = new Date();
   const defaultStart = new Date();
-  defaultStart.setDate(today.getDate() - 6); // last 7 days
+  defaultStart.setDate(today.getDate() - 6); 
 
   const [startDate, setStartDate] = useState(defaultStart);
   const [endDate, setEndDate] = useState(defaultEnd);

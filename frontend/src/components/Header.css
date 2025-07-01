@@ -32,7 +32,7 @@
   height: 98px;
   width: auto;
   cursor: pointer;
-  border-radius: 50%; /* Optional: circular */
+  border-radius: 50%; 
   transition: transform 0.2s ease;
 }
 
@@ -66,7 +66,7 @@
 
 /* Hamburger Button */
 .hamburger {
-  display: none; /* Hidden on desktop */
+  display: none; 
   flex-direction: column;
   justify-content: space-around;
   width: 28px;
@@ -75,7 +75,7 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  z-index: 1100; /* Above header content */
+  z-index: 1100;
 }
 
 .hamburger div {
@@ -115,7 +115,7 @@
     width: 100%;
     background-color: rgba(0, 15, 40, 0.95);
     position: absolute;
-    top: 72px; /* Just below fixed header */
+    top: 72px; 
     left: 0;
     padding: 20px 0;
     border-top: 1px solid #2196f3;

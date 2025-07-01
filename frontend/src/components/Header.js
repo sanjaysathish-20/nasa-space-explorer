@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
-import logo from '../logo.jpg'; // NASA logo from components folder
+import logo from '../logo.jpg';
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);

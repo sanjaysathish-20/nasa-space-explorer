@@ -27,7 +27,7 @@
 }
 
 .card-section {
-  background: rgba(20, 25, 35, 0.7); /* semi-transparent dark for readability */
+  background: rgba(20, 25, 35, 0.7); 
   border-radius: 15px;
   padding: 25px 30px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.7);
@@ -94,7 +94,7 @@
   margin-bottom: 8px;
   font-weight: 700;
   font-size: 1.4rem;
-  color: #64b5f6; /* lighter blue */
+  color: #64b5f6;
 }
 
 .eonet-details p {
@@ -108,14 +108,14 @@
   font-weight: 600;
   border: none;
   border-radius: 8px;
-  background-color: #42a5f5; /* medium blue */
+  background-color: #42a5f5; 
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .view-details-btn:hover {
-  background-color: #1565c0; /* darker blue */
+  background-color: #1565c0; 
 }
 
 /* Mars Weather section */

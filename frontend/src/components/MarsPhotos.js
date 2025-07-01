@@ -16,7 +16,7 @@ function MarsPhotos() {
       const res = await fetch(`${BASE_URL}/mars-photos?page=${pageNum}`);
       if (!res.ok) throw new Error('Failed to fetch Mars photos');
       const data = await res.json();
-      setPhotos(data.photos); // API returns `photos` array
+      setPhotos(data.photos); 
     } catch (err) {
       setError(err.message);
     }

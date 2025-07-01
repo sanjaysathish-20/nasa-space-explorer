@@ -33,10 +33,9 @@ function Epic() {
     fetchEpicImages();
   }, [date]);
 
-  // Helper to extract only time from NASA EPIC date string
   const getTimeOnly = (dateStr) => {
     if (!dateStr) return 'Invalid date';
-    const isoDateStr = dateStr.replace(' ', 'T'); // Fix space to T
+    const isoDateStr = dateStr.replace(' ', 'T');
     const d = new Date(isoDateStr);
     if (isNaN(d)) return 'Invalid date';
     return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -111,7 +110,7 @@ function Epic() {
                 left: 0,
                 right: 0,
                 bottom: 0,
-                backgroundColor: '#121212cc', // dark gray + transparency
+                backgroundColor: '#121212cc',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
